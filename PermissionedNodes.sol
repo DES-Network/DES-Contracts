@@ -9,8 +9,8 @@ contract PermissionedNodes is Ownable {
 
   uint count;
 
-  event NodeAdded(string indexed nodeName);
-  event NodeDeleted(string indexed nodeName);
+  event NodeAdded(bytes indexed nodeName);
+  event NodeDeleted(bytes indexed nodeName);
   
 
   function exists (bytes name) public view returns (bool) {
