@@ -10,32 +10,32 @@ import "./lib/Ownable.sol";
  */
 contract RegulatorRegistry is Ownable {
 
-  // regulator address
-  mapping(address => bool) regulators;
+  // regulator public key
+  mapping(string => bool) regulators;
 
   // number of regulators registered
   uint count;
 
-  event RegulatorRegistered(address indexed _address);
-  event RegulatorRemoved(address indexed _address);
+  event RegulatorRegistered(string indexed _address);
+  event RegulatorRemoved(string indexed _address);
   
 
   /**
-   * @dev Allows anyone to check if the given address belongs to a 
+   * @dev Allows anyone to check if the given public key belongs to a 
    * registered regulator
-   * @param _address The address to check for regulator privileges
+   * @param _address The public key to check for regulator privileges
    */
-  function exists (address _address) public view returns (bool) {
+  function exists (string _address) public view returns (bool) {
     return regulators[_address];
   }
 
 
   /**
-   * @dev Allows only the owner to add the given address as a  
+   * @dev Allows only the owner to add the given public key as a  
    * regulator
    * @param _address The address to register
    */ 
-  function register (address _address) onlyOwner public {
+  function register (string _address) onlyOwner public {
     require(!exists(_address));
     regulators[_address] = true;
     count++;
@@ -43,11 +43,11 @@ contract RegulatorRegistry is Ownable {
   }
 
   /**
-   * @dev Allows only the owner to remove the given address from 
+   * @dev Allows only the owner to remove the given public key from 
    * the regulator registry
    * @param _address The address to remove from registry
    */ 
-  function remove (address _address) onlyOwner public {
+  function remove (string _address) onlyOwner public {
     require(exists(_address));
     regulators[_address] = false;
     emit RegulatorRemoved(_address);
